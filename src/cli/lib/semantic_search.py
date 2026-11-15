@@ -15,7 +15,7 @@ class SemanticSearch:
         return self.model.encode([text])[0]
 
 
-def generate_embedding(text):
+def embed_text(text):
     ss = SemanticSearch()
     embedding = ss.generate_embedding(text)
     print(f"Text: {text}")

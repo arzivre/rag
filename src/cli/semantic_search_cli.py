@@ -1,6 +1,6 @@
 import argparse
 
-from cli.lib.semantic_search import generate_embedding, verify_model
+from cli.lib.semantic_search import embed_text, verify_model
 
 
 def main() -> None:
@@ -18,7 +18,7 @@ def main() -> None:
 
     match args.command:
         case "embed_text":
-            generate_embedding(args.text)
+            embed_text(args.text)
 
         case "verify":
             verify_model()
