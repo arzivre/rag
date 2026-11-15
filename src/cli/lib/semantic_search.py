@@ -1,12 +1,13 @@
 import os
+
+os.environ["HF_HUB_OFFLINE"] = "1"
+
 from pathlib import Path
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
 from cli.lib.search_utils import load_movies
-
-os.environ["HF_HUB_OFFLINE"] = "1"
 
 
 class SemanticSearch:
