@@ -3,6 +3,7 @@ import argparse
 from cli.lib.semantic_search import (
     embed_query_text,
     embed_text,
+    search,
     verify_embeddings,
     verify_model,
 )
@@ -11,6 +12,12 @@ from cli.lib.semantic_search import (
 def main() -> None:
     parser = argparse.ArgumentParser(description="Semantic Search CLI")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+    search_parser = subparsers.add_parser("search", help="Search for relevan movies")
+    search_parser.add_argument("query", type=str, help="User query to search based on")
+    search_parser.add_argument(
+        "--limit", type=int, default=5, help="Number of result return"
+    )
 
     embed_query_parser = subparsers.add_parser(
         "embed_query", help="Encode query with embedding model"
@@ -31,6 +38,9 @@ def main() -> None:
     args = parser.parse_args()
 
     match args.command:
+        case "search":
+            search(args.query, args.limit)
+
         case "embed_query":
             embed_query_text(args.query)
 
