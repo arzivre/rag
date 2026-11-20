@@ -64,6 +64,21 @@ class SemanticSearch:
         return res
 
 
+def fixed_sized_chunking(text, chunk_size=200):
+    words = text.split()
+    chunks = []
+    for i in range(0, len(words), chunk_size):
+        chunks.append(" ".join(words[i : i + chunk_size]))
+    return chunks
+
+
+def chunk_text(text, chunk_size=200):
+    chunks = fixed_sized_chunking(text, chunk_size)
+    print(f"Chunking {len(text)} characters")
+    for i, chunk in enumerate(chunks):
+        print(f"{i+1}. {chunk}")
+
+
 def search(query, limit):
     ss = SemanticSearch()
     documents = load_movies()

@@ -1,6 +1,7 @@
 import argparse
 
 from cli.lib.semantic_search import (
+    chunk_text,
     embed_query_text,
     embed_text,
     search,
@@ -12,6 +13,14 @@ from cli.lib.semantic_search import (
 def main() -> None:
     parser = argparse.ArgumentParser(description="Semantic Search CLI")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+    chunk_parser = subparsers.add_parser(
+        "chunk", help="Chunk a document"
+    )
+    chunk_parser.add_argument("text", type=str, help="Document to be chunk")
+    chunk_parser.add_argument(
+        "--chunk-size", type=int, default=200, help="Number of words in each fixed size chunk"
+    )
 
     search_parser = subparsers.add_parser("search", help="Search for relevan movies")
     search_parser.add_argument("query", type=str, help="User query to search based on")
@@ -38,6 +47,9 @@ def main() -> None:
     args = parser.parse_args()
 
     match args.command:
+        case "chunk":
+            chunk_text(args.text, args.chunk_size)
+
         case "search":
             search(args.query, args.limit)
 
